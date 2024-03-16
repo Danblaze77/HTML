@@ -1,0 +1,35 @@
+<html>
+<head >
+    <link rel="stylesheet" href="hide.css">
+    <title>Dropdown</title>
+
+<ul class="dropdown">
+    <li class="dropdown-item">Item 1</li>
+    <li class="dropdown-item has-submenu">
+      Item 2
+      <ul class="submenu">
+        <li><a href="#i1">Sub Item 1</a></li>
+        <li><a href="#i2">Sub Item 2</a></li>
+      </ul>
+    </li>
+    <li class="dropdown-item">Item 3</li>
+  </ul>
+</head>
+<body>
+    <script>
+    $(document).ready(function() {
+        $('.dropdown-item.has-submenu').click(function(e) {
+          $(this).toggleClass('active');
+          $(this).find('.submenu').slideToggle(200);
+          e.stopPropagation();
+        });
+      
+        $('.dropdown').mouseleave(function() {
+          $(this).find('.dropdown-item.active').removeClass('active');
+          $(this).find('.submenu').hide();
+        });
+      });
+    </script>  
+</body>
+</html>
+  
