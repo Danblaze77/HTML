@@ -16,11 +16,10 @@ public class AddToCartServlet extends HttpServlet {
             for (String product : selectedProducts) {
                 cartItems.append(product).append(",");
             }
-            // Remove the last comma
             cartItems.deleteCharAt(cartItems.length() - 1);
             
             Cookie cookie = new Cookie("cartItems", cartItems.toString());
-            cookie.setMaxAge(24 * 60 * 60); // Cookie valid for 1 day
+            cookie.setMaxAge(24 * 60 * 60); 
             response.addCookie(cookie);
         }
         
