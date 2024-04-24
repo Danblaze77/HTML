@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+</head>
+<body>
+    <label for="employee-id">Enter Employee ID:</label>
+    <input type="text" id="employee-id">
+    <button onclick="getEmployeeDetails()">Get Details</button>
+    <div id="employee-details"></div>
+
+    <script>
+        function getEmployeeDetails() {
+            var id = document.getElementById("employee-id").value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    displayEmployeeDetails(this);
+                }
+            };
+            xhttp.open("GET", "emp.xml", true);
+            xhttp.send();
+        }
+
+        function displayEmployeeDetails(xml) {
+            var xmlDoc = xml.responseXML;
+            var id = document.getElementById("employee-id").value;
+            var employees = xmlDoc.getElementsByTagName("employee");
+            for (var i = 0; i < employees.length; i++) {
+                if (employees[i].getElementsByTagName("id")[0].childNodes[0].nodeValue == id) {
+                    var name = employees[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+                    var position = employees[i].getElementsByTagName("position")[0].childNodes[0].nodeValue;
+                    var department = employees[i].getElementsByTagName("department")[0].childNodes[0].nodeValue;
+                    var salary = employees[i].getElementsByTagName("salary")[0].childNodes[0].nodeValue;
+                    document.getElementById("employee-details").innerHTML = "<h2>Employee Details</h2><p><strong>Name:</strong> " + name + "</p><p><strong>Position:</strong> " + position + "</p><p><strong>Department:</strong> " + department + "</p><p><strong>Salary:</strong> Rs." + salary + "</p>";
+                   
+                    return;
+                }
+            }
+            document.getElementById("employee-details").innerHTML = "<p>No employee found with ID " + id + "</p>";
+        }
+    </script>
+</body>
+</html>
